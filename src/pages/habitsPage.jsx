@@ -9,7 +9,7 @@ import { UserContext } from '../contexts/userContext';
 
 function HabitsPage() {
   const { user:{token} } = useContext(UserContext);
-  const { habits, selectedDays, setSelectedDays } = useContext(HabitsContext);
+  const { habits, selectedDays, setSelectedDays, isHabitsLoading } = useContext(HabitsContext);
   const [ isCreating, setIsCreating ] = useState(false);
   const { register, handleSubmit } = useForm();
   const [ habitCache, setHabitCache ] = useState('');
@@ -65,14 +65,14 @@ function HabitsPage() {
         </form>
       }
       
-      { habits?.map((habit) => (
-        <Habit {...habit}/>
-      ))
+      { !isHabitsLoading && ( habits?.map((habit) => (<Habit {...habit}/> )) ) }
+
+      { (!isHabitsLoading && habits.length === 0) 
+        && <p>Você não tem nenhum hábito cadastrado ainda.
+          Adicione um hábito para começar a trackear!</p>
       }
 
-      { habits.length === 0 
-      && <p>Você não tem nenhum hábito cadastrado ainda.
-         Adicione um hábito para começar a trackear!</p> }
+      { isHabitsLoading && <p>Carregando...</p> }
     </>
   );
 }

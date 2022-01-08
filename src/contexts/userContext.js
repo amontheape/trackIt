@@ -10,7 +10,6 @@ export default function UserProvider( {children} ) {
   const [user, setUser] = useSessionStorage('user', null);
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(JSON.stringify(user));
 
   function handleLogin({ email, password }) {
     const loginRequest = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', { email, password });
@@ -18,14 +17,11 @@ export default function UserProvider( {children} ) {
       setUser(data)
       navigate('/habitos');
     }, (error) => console.log(error));
-
-    console.log('login efetuado: '+ JSON.stringify(user) );
   }
 
   function handleSignUp({email, password, name, image}) {
     const signUpRequest = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', {email, name, image, password });
     signUpRequest.then(() => navigate('/'), (error) => console.log(error));
-    console.log('cadastro efetuado: ' + user);
   }
 
   function handleLogOut(){
