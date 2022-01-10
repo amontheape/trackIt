@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
-import { HabitsContext } from '../contexts/habitsContext';
 import axios from 'axios';
-import styled from 'styled-components';
-import Habit from '../components/Habit';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import WeekInput from '../components/WeekInput';
 import { UserContext } from '../contexts/userContext';
+import { HabitsContext } from '../contexts/habitsContext';
+import Habit from '../components/Habit';
+import WeekInput from '../components/WeekInput';
+import { DefaultContainer, Title, HabitWrapper, Form, Input, SubmitButton, Warning } from '../assets/css/style';
 
 function HabitsPage() {
   const { user:{token} } = useContext(UserContext);
@@ -36,53 +36,51 @@ function HabitsPage() {
   }
 
   return(
-    <>
+    <DefaultContainer>
       <Title>
         <p>Meus Hábitos</p>
         <button onClick={()=>{
             setIsCreating(true);
             !isCancelled && setSelectedDays([]);
           }
-        }>+</button>
+        }><ion-icon name="add"></ion-icon></button>
       </Title>
 
       { isCreating && 
-        <form onSubmit={handleSubmit(handleCreate)}>
-          <input type='text' 
-            {...register('habit', {required: 'Este campo é obrigatório'})} 
-            placeholder='nome do hábito' 
-            onChange={(event) => setHabitCache(event.target.value)}
-            value={habitCache}
-          />
-          <WeekInput />
-          <div className="wrapper">
-            <button onClick={() => {
-              setIsCreating(false);
-              setIsCancelled(true);
-            }}>Cancelar</button>
-            <button type='submit'>Salvar</button>
-          </div>
-        </form>
+        <HabitWrapper>
+          <Form onSubmit={handleSubmit(handleCreate)}>
+            <Input type='text' 
+              {...register('habit', {required: 'Este campo é obrigatório'})} 
+              placeholder='nome do hábito' 
+              onChange={(event) => setHabitCache(event.target.value)}
+              value={habitCache}
+            />
+            <WeekInput />
+            <div className="wrapper">
+              <button onClick={() => {
+                setIsCreating(false);
+                setIsCancelled(true);
+              }}>Cancelar</button>
+              <SubmitButton type='submit'>Salvar</SubmitButton>
+            </div>
+          </Form>
+        </HabitWrapper>
       }
       
-      { !isHabitsLoading && ( habits?.map((habit) => (<Habit {...habit}/> )) ) }
+      { 
+        !isHabitsLoading && ( habits?.map((habit) => (
+            <Habit {...habit} />
+         )))
+      }
 
       { (!isHabitsLoading && habits.length === 0) 
-        && <p>Você não tem nenhum hábito cadastrado ainda.
-          Adicione um hábito para começar a trackear!</p>
+        && <Warning>Você não tem nenhum hábito cadastrado ainda.
+          Adicione um hábito para começar a trackear!</Warning>
       }
 
       { isHabitsLoading && <p>Carregando...</p> }
-    </>
+    </DefaultContainer>
   );
 }
 
 export default HabitsPage;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  height: 40px;
-`

@@ -9,6 +9,7 @@ export default function HabitsProvider( {children} ) {
   const [selectedDays, setSelectedDays] = useState([]);
   const [habits, setHabits] = useState([]);
   const [isHabitsLoading, setIsHabitsLoading] = useState(false);
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(()=>{
     if(user){
@@ -34,7 +35,9 @@ export default function HabitsProvider( {children} ) {
       setHabits,
       selectedDays,
       setSelectedDays,
-      isHabitsLoading
+      isHabitsLoading,
+      percentage,
+      setPercentage
     }}>
       { children }
     </HabitsContext.Provider>

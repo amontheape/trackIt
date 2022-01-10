@@ -1,11 +1,13 @@
 import WeekInput from "./WeekInput";
+import { HabitWrapper, Trash } from '../assets/css/style';
 
 function Habit({id, name, days}){
   return(
-    <div key={id}>
+    <HabitWrapper key={id}>
       <p>{name}</p>
       <WeekInput days={days}/>
-    </div>
+      <Trash><ion-icon name="trash-outline"></ion-icon></Trash>
+    </HabitWrapper>
   )
 }
 
