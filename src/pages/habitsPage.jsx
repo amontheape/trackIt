@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/userContext';
 import { HabitsContext } from '../contexts/habitsContext';
 import Habit from '../components/Habit';
 import WeekInput from '../components/WeekInput';
-import { DefaultContainer, Title, HabitWrapper, Form, Input, SubmitButton, Warning } from '../assets/css/style';
+import { DefaultContainer, Title, HabitWrapper, Form, Input, SubmitButton, Warning, HabitsButton } from '../assets/css/style';
 
 function HabitsPage() {
   const { user:{token} } = useContext(UserContext);
@@ -57,11 +57,11 @@ function HabitsPage() {
             />
             <WeekInput />
             <div className="wrapper">
-              <button onClick={() => {
+              <HabitsButton onClick={() => {
                 setIsCreating(false);
                 setIsCancelled(true);
-              }}>Cancelar</button>
-              <SubmitButton type='submit'>Salvar</SubmitButton>
+              }}>Cancelar</HabitsButton>
+              <HabitsButton type='submit' name='save'>Salvar</HabitsButton>
             </div>
           </Form>
         </HabitWrapper>

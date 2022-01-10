@@ -164,8 +164,8 @@ const ProfilePicture = styled.img`
 
 const Title = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: ${({ column }) => column ? 'column' : 'row'};
+  justify-content: ${({ column }) => column ? 'flex-start' : 'space-between'};
 
   height: 40px;
   width: 100%;
@@ -201,7 +201,7 @@ const Title = styled.div`
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
-    color: #8FC549;
+    color: ${({ hasHabitDone }) => hasHabitDone ? '8FC549' : '#BABABA'};
   }
 `
 const HabitWrapper = styled.div`
@@ -225,12 +225,21 @@ const HabitWrapper = styled.div`
 
     margin-bottom: 8px;
   }
+
+  & >form{
+    align-items: flex-start;
+  }
+
+  & >form >:last-child {
+    margin-bottom: 0;
+  }
 `
 const HabitsButton = styled.button`
   width: 84px;
   height: 35px;
 
   border: none;
+  border-radius: 5px;
   background-color: ${({ name }) => name === 'save' ? 'var(--lightBlue)' : '#fff'};
 
   color: ${({ name }) => name === 'save' ? '#fff' : 'var(--lightBlue)'};
@@ -296,7 +305,13 @@ const TextWrapper = styled.div`
   & >p>span{
     font-size: 13px;
     line-height: 16px;
-    color: #8FC549;
+    color: ${({ done }) => done && '#8FC549'};
+  }
+
+  & :last-child>span{
+    font-size: 13px;
+    line-height: 16px;
+    color: ${({ record }) => record && '#8FC549'};
   }
 `
 const CheckBox = styled.div`
@@ -308,6 +323,10 @@ const CheckBox = styled.div`
 
   width: 84px;
   height: 84px;
+
+  & >ion-icon{
+    color: ${({ done }) => done ? '#8FC549' : '#EBEBEB'};
+  }
 `
 
 /* ---------------END--------------- */

@@ -79,7 +79,11 @@ const GlobalStyle = createGlobalStyle`
   .wrapper {
     display: flex;
     justify-content: flex-end;
-    padding: 0 16px;
     gap: 23px;
+
+    width: 100%;
+    
+    padding: 0 16px;
+    margin-top: 30px;
   }
 `;
