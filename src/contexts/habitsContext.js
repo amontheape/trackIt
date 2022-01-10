@@ -11,6 +11,18 @@ export default function HabitsProvider( {children} ) {
   const [isHabitsLoading, setIsHabitsLoading] = useState(false);
   const [percentage, setPercentage] = useState(0);
 
+  function handleDelete(habitId) {
+    if (window.confirm('Você deseja realmente deletar este hábito?')){
+      const deleteRequest = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        });
+      deleteRequest.then(() => setHabits(habits.filter(({id}) => id !== habitId)), (error) => console.log(error));
+    } else return ;
+  }
+
   useEffect(()=>{
     if(user){
       setIsHabitsLoading(true);
@@ -37,7 +49,8 @@ export default function HabitsProvider( {children} ) {
       setSelectedDays,
       isHabitsLoading,
       percentage,
-      setPercentage
+      setPercentage,
+      handleDelete
     }}>
       { children }
     </HabitsContext.Provider>

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { LoginPage, SignUpPage, HabitsPage, HistoryPage } from './pages';
+import { LoginPage, SignUpPage, HabitsPage, HistoryPage, TodayPage } from './pages';
 import { createGlobalStyle } from 'styled-components';
 import { Header, Footer } from './components';
 import UserProvider from './contexts/userContext'; 
@@ -26,6 +26,13 @@ function App() {
                 <>
                   <Header />
                   <HistoryPage />
+                  <Footer />
+                </>
+              } />
+              <Route path='/hoje' element={
+                <>
+                  <Header />
+                  <TodayPage />
                   <Footer />
                 </>
               } />

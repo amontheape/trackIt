@@ -13,15 +13,21 @@ function WeekInput({days=null}){
     setSelectedDays([...selectedDays, value]);
   }
 
+  function handleSelection(key){
+    if(days){
+      return days.includes(key);
+    }else return selectedDays.includes(key);
+  }
+
   return(
     <WeekWrapper>
-      <DayInput type='button' value='D' onClick={()=> handleClick(0)} key='0' selected={selectedDays.includes(0)}/>
-      <DayInput type='button' value='S' onClick={()=> handleClick(1)} key='1' selected={selectedDays.includes(1)}/>
-      <DayInput type='button' value='T' onClick={()=> handleClick(2)} key='2' selected={selectedDays.includes(2)}/>
-      <DayInput type='button' value='Q' onClick={()=> handleClick(3)} key='3' selected={selectedDays.includes(3)}/>
-      <DayInput type='button' value='Q' onClick={()=> handleClick(4)} key='4' selected={selectedDays.includes(4)}/>
-      <DayInput type='button' value='S' onClick={()=> handleClick(5)} key='5' selected={selectedDays.includes(5)}/>
-      <DayInput type='button' value='S' onClick={()=> handleClick(6)} key='6' selected={selectedDays.includes(6)}/>
+      <DayInput type='button' value='D' onClick={()=> handleClick(0)} key='0' selected={handleSelection(0)} disabled={!!days} />
+      <DayInput type='button' value='S' onClick={()=> handleClick(1)} key='1' selected={handleSelection(1)} disabled={!!days} />
+      <DayInput type='button' value='T' onClick={()=> handleClick(2)} key='2' selected={handleSelection(2)} disabled={!!days} />
+      <DayInput type='button' value='Q' onClick={()=> handleClick(3)} key='3' selected={handleSelection(3)} disabled={!!days} />
+      <DayInput type='button' value='Q' onClick={()=> handleClick(4)} key='4' selected={handleSelection(4)} disabled={!!days} />
+      <DayInput type='button' value='S' onClick={()=> handleClick(5)} key='5' selected={handleSelection(5)} disabled={!!days} />
+      <DayInput type='button' value='S' onClick={()=> handleClick(6)} key='6' selected={handleSelection(6)} disabled={!!days} />
     </WeekWrapper>
   )
 }

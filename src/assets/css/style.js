@@ -195,6 +195,14 @@ const Title = styled.div`
     border: none;
     border-radius: 5px;
   }
+
+  & >span{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #8FC549;
+  }
 `
 const HabitWrapper = styled.div`
   display: flex;
@@ -248,6 +256,59 @@ const Trash = styled.div`
   color: #666;
   border: none;
 `
+/* ---------------Today--------------- */
+
+const HabitActionBox = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px;
+  margin-bottom: 10px;
+  
+  border: none;
+  border-radius: 5px;
+
+  background-color: #fff;
+
+`
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  font-style: normal;
+  font-weight: normal;
+  color: #666;
+
+  & >h1{
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 8px;
+  }
+
+  & >p{
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  & >p>span{
+    font-size: 13px;
+    line-height: 16px;
+    color: #8FC549;
+  }
+`
+const CheckBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 84px;
+
+  width: 84px;
+  height: 84px;
+`
 
 /* ---------------END--------------- */
 
@@ -269,5 +330,8 @@ export {
   Title,
   HabitWrapper,
   HabitsButton,
-  Trash
+  Trash,
+  HabitActionBox,
+  TextWrapper,
+  CheckBox
 }
