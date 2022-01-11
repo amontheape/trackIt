@@ -1,21 +1,31 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import Loader from 'react-loader-spinner';
+import { useContext, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../contexts/userContext';
 import { HabitsContext } from '../contexts/habitsContext';
 import Habit from '../components/Habit';
 import WeekInput from '../components/WeekInput';
-import { DefaultContainer, Title, HabitWrapper, Form, Input, SubmitButton, Warning, HabitsButton } from '../assets/css/style';
+import { DefaultContainer, Title, HabitWrapper, Form, Input, Warning, HabitsButton } from '../assets/css/style';
 
 function HabitsPage() {
   const { user:{token} } = useContext(UserContext);
-  const { habits, selectedDays, setSelectedDays, isHabitsLoading } = useContext(HabitsContext);
+  const { 
+    habits, 
+    selectedDays, 
+    setSelectedDays, 
+    isHabitsLoading, 
+    getAllHabits, 
+    getTodayHabits, 
+    isSaving, 
+    setIsSaving } = useContext(HabitsContext);
+  const { register, handleSubmit, reset } = useForm();
   const [ isCreating, setIsCreating ] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const [ habitCache, setHabitCache ] = useState('');
   const [ isCancelled, setIsCancelled] = useState(false);
+  const [habitCache, setHabitCache] = useState('');
 
   function handleCreate({habit}){
+    setIsSaving(true);
     const createRequest = axios.post(
       'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',
        {
@@ -28,8 +38,11 @@ function HabitsPage() {
          }
        });
 
-    createRequest.then((response)=> {
-      console.log(response);
+    createRequest.then(()=> {
+      reset();
+      getAllHabits();
+      getTodayHabits();
+      setIsSaving(false);
       setIsCreating(false);
       setIsCancelled(false);
     }, (error)=> console.log(error));
@@ -54,6 +67,7 @@ function HabitsPage() {
               placeholder='nome do hábito' 
               onChange={(event) => setHabitCache(event.target.value)}
               value={habitCache}
+              disabled={isSaving}
             />
             <WeekInput />
             <div className="wrapper">
@@ -61,7 +75,14 @@ function HabitsPage() {
                 setIsCreating(false);
                 setIsCancelled(true);
               }}>Cancelar</HabitsButton>
-              <HabitsButton type='submit' name='save'>Salvar</HabitsButton>
+              <HabitsButton type='submit' name='save' disabled={isSaving}>
+                {isSaving ? (<Loader
+                  type="ThreeDots"
+                  color='white'
+                  height={11}
+                  width={43}
+                />) : 'Salvar'}
+              </HabitsButton>
             </div>
           </Form>
         </HabitWrapper>
@@ -78,7 +99,9 @@ function HabitsPage() {
           Adicione um hábito para começar a trackear!</Warning>
       }
 
-      { isHabitsLoading && <p>Carregando...</p> }
+      { isHabitsLoading && <Loader 
+          type="Bars" heigth="100" width="100" color="grey"
+      /> }
     </DefaultContainer>
   );
 }

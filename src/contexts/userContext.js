@@ -2,26 +2,34 @@ import React, { createContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-import useSessionStorage from "../helpers";
+import useLocalStorage from "../helpers";
 
 export const UserContext = createContext();
 
 export default function UserProvider( {children} ) {
-  const [user, setUser] = useSessionStorage('user', null);
+  const [ isLoginLoading, setIsLoginLoading ] = useState(false);
+  const [ isSignUpLoading, setIsSignUpLoading ] = useState(false);
+  const [user, setUser] = useLocalStorage('user', null);
   const navigate = useNavigate();
   const location = useLocation();
 
   function handleLogin({ email, password }) {
+    setIsLoginLoading(true);
     const loginRequest = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', { email, password });
-    loginRequest.then(({data}) =>{
-      setUser(data)
-      navigate('/habitos');
+    loginRequest.then(({data}) => {
+      setUser(data);
+      setIsLoginLoading(false);
+      navigate('/hoje');
     }, (error) => console.log(error));
   }
 
   function handleSignUp({email, password, name, image}) {
+    setIsSignUpLoading(true);
     const signUpRequest = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', {email, name, image, password });
-    signUpRequest.then(() => navigate('/'), (error) => console.log(error));
+    signUpRequest.then(() => {  
+      navigate('/');
+      setIsSignUpLoading(true);
+    }, (error) => console.log(error));
   }
 
   function handleLogOut(){
@@ -47,7 +55,9 @@ export default function UserProvider( {children} ) {
         user,
         setUser,
         handleLogin,
-        handleSignUp
+        handleSignUp,
+        isLoginLoading,
+        isSignUpLoading
       }}
     >
       {children}

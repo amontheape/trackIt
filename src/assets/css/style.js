@@ -18,6 +18,11 @@ const Form = styled.form`
   & >:last-child {
     margin-bottom: 25px;
   }
+
+  & >p{
+    margin: 4px 0 8px;
+    color: lightcoral;
+  }
 `
 const Input = styled.input`
   width: 303px;
@@ -38,6 +43,12 @@ const Input = styled.input`
     text-align: left;
     padding: 9px 11px;
   }
+
+  :disabled {
+    background-color: #f2f2f2;
+    opacity: 0.7;
+    color: #afafaf;
+  }
 `
 const SubmitButton = styled.button`
   width: 303px;
@@ -54,6 +65,10 @@ const SubmitButton = styled.button`
   font-size: 21px;
   line-height: 26px;
   text-align: center;
+
+  :disabled {
+    opacity: 0.7;
+  }
 `
 const DefaultContainer = styled.div`
   display: flex;
@@ -72,28 +87,33 @@ const WeekWrapper = styled.div`
   gap: 4px;
 `
 const DayInput = styled.input`
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 
-    border: 1px solid #d4d4d4;
-    border-radius: 5px;
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
 
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 25px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 25px;
 
-    color: ${ ({selected}) => selected ? '#fff' : '#D4D4D4' };
-    background-color: ${ ({ selected }) => selected ? '#D4D4D4' : '#fff' };
+  color: ${ ({selected}) => selected ? '#fff' : '#D4D4D4' };
+  background-color: ${ ({ selected }) => selected ? '#D4D4D4' : '#fff' };
 `
 const Warning = styled.p`
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-    word-break: break-word;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  word-break: break-word;
 
-    color: #666;
+  color: #666;
+`
+const DisabledOverlay = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255,255,255, 0);
 `
 
 /* ---------------Footer--------------- */
@@ -113,6 +133,7 @@ const BottomBar = styled.footer`
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 
   background-color: #fff;
   
@@ -144,6 +165,7 @@ const TopBar = styled.header`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 
   padding: 10px 18px;
 
@@ -248,6 +270,10 @@ const HabitsButton = styled.button`
   font-size: 15.976px;
   line-height: 20px;
   text-align: center;
+
+  :disabled {
+    opacity: 0.7;
+  }
 `
 const Trash = styled.div`
   display: flex;

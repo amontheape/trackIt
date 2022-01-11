@@ -3,7 +3,7 @@ import { HabitsContext } from "../contexts/habitsContext";
 import { WeekWrapper, DayInput } from '../assets/css/style';
 
 function WeekInput({days=null}){
-  const {selectedDays, setSelectedDays} = useContext(HabitsContext);
+  const { selectedDays, setSelectedDays } = useContext(HabitsContext);
 
   function handleClick(value){
     if(selectedDays.includes(value)){

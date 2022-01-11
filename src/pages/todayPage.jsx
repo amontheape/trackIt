@@ -7,9 +7,8 @@ import { UserContext } from "../contexts/userContext";
 import { DefaultContainer, Title, HabitActionBox, TextWrapper, CheckBox } from "../assets/css/style";
 
 function TodayPage() {
-  const [ todayHabits, setTodayHabits ] = useState();
   const { user } = useContext(UserContext);
-  const { percentage, setPercentage } = useContext(HabitsContext);
+  const { percentage, todayHabits, getTodayHabits } = useContext(HabitsContext);
 
   const today = dayjs().locale("pt-br").format("dddd DD/MM");
   const weekDay = today.split(' ')[0].replace('-feira', '');
@@ -17,37 +16,21 @@ function TodayPage() {
   
   const hasHabitDone = todayHabits?.some(({ done }) => done);
 
-  function getHabits() {
-    const todayRequest = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',
-      { headers: { Authorization: `Bearer ${user.token}`}});
-
-    todayRequest.then( ({ data }) => {
-      setTodayHabits(data);
-    }, (error) => console.log(error));
-  }
-
   function handleCheck(id, done) {
     if(done){
       const uncheckRequest = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {},
         { headers: { Authorization: `Bearer ${user.token}`} });
-      uncheckRequest.then(() => getHabits(), (error) => console.log(error));
+      uncheckRequest.then(() => getTodayHabits(), (error) => console.log(error));
     } else {
       const checkRequest = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {},
         { headers: { Authorization: `Bearer ${user.token}`} });
-      checkRequest.then(() => getHabits(), (error) => console.log(error));
+      checkRequest.then(() => getTodayHabits(), (error) => console.log(error));
     }
   }
 
   useEffect(() => {
-    getHabits();
+    getTodayHabits();
   }, [])
-
-  useEffect(() => {
-    const habitsDone = todayHabits?.filter(({ done }) => done).length;
-    const totalHabits = todayHabits?.length;
-    let result = ((habitsDone / totalHabits) * 100).toFixed();
-    setPercentage(Math.ceil(result));
-  },[todayHabits])
 
   return(
     <DefaultContainer>
