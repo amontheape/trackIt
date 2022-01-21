@@ -2,38 +2,43 @@
 
 This project implements recent study advancements on ContextAPI and Login Persistance by creating a simple SPA thats provides tracking for the user day to day activities
 
-# Coming Soon
+## Main Features
+
+- Register and Login Persistance based on localStorage
+- Create and manage custom habits opting on week schedules
+- Checklist tracking of user daily activities
+- Tracks current and record sequences showcased on todayPage
+
+## Coming Soon
 
 HistoryPage feature which will provide a calendar for monthly or weekly reviews of past activities   
 
-# Getting Started with Create React App
+## Built with
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+  ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+    <img style='margin: 5px' src='https://img.shields.io/badge/Context-API-blue?style=for-the-badge&logo=appveyor'>
+  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+  ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+  
+## How to run
 
-## Available Scripts
+1. Clone this repository
 
-In the project directory, you can run:
+2. Install dependencies
+```bash
+npm i
+```
 
-### `npm start`
+3. Run the application with
+```bash
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. You can optionally build the project running
+```bash
+npm run build
+```
+5. Finally, access http://localhost:3000 on your favorite browser
